@@ -40,6 +40,7 @@ void 				cursornext(t_select *select);
 void 				cursorprev(t_select *select);
 void				cursorup(t_select *select, t_shell shell);
 void				cursordown(t_select *select, t_shell shell);
+void				cursordel(t_select **select);
 void				selectcursor(t_select *select);
 char				*selectreturn(t_select *select);
 

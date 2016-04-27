@@ -26,7 +26,7 @@ void exitprg(void)
 
 int keytest(char *buffer, t_select *select, t_shell shell)
 {
-	ft_dprintf(STDIN_FILENO,"[%d %d %d]\n", buffer[0], buffer[1], buffer[2]);
+	//ft_dprintf(STDIN_FILENO,"[%d %d %d]\n", buffer[0], buffer[1], buffer[2]);
 	if (buffer[0] == 27)
 	{
 		if (buffer[2] == 65)
@@ -42,7 +42,15 @@ int keytest(char *buffer, t_select *select, t_shell shell)
 		return (1);
 	}
 	else if (buffer[0] == 32)
+	{
 		selectcursor(select);
+		cursornext(select);
+	}
+	else if (buffer[0] == 127)
+	{
+		//delete
+		cursordel(&select);
+	}
 	else if (buffer[0] == 10) //ENTER
 	{
 		tputs(tgetstr("te", NULL), 1, lol);
@@ -101,6 +109,7 @@ int	mainloop(int ac, char **argv)
 		tputs(tgetstr("cl", NULL), 1, lol);
 		keytest(buffer, select, shell);
 		viewselect(select, shell);
+		//exit(0);
 		bzero(buffer, 3);
 		read(0, buffer, 3);
 		updateshell(&shell);
@@ -123,6 +132,8 @@ int	main(int ac, char **argv, char **env)
 	if (tcgetattr(0, &term) == -1)
 		return (-1);
 
+	if (ac < 2)
+		exit(1);
 	term.c_lflag &= ~(ICANON);
 	term.c_lflag &= ~(ECHO);
 	term.c_cc[VMIN] = 1;

@@ -33,4 +33,9 @@ fclean: clean
 	@$(RM) $(NAME)
 	@make -C libft fclean
 
+test:
+	@ls `./ft_select`
+	@ls `./ft_select A`
+	@ls `./ft_select AB AC`
+
 re: fclean all

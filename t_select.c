@@ -28,30 +28,29 @@ t_select	*newselect(char *name)
 
 t_select	*addselect(t_select **list, t_select *elem, int last)
 {
-	t_select	*cursor;
+	t_select	*current;
 	t_select	*first;
 
 	(void)last;
 	first = *list;
-	cursor = *list;
+	current = *list;
 	if (!*list)
 	{
 		elem->cursor = 1;
+		elem->next = elem;
+		elem->prev = elem;
 		*list = elem;
 	}
 	else
 	{
-		while (cursor->next)
+		while (current->next && current->next != first)
 		{
-			cursor = cursor->next;
+			current = current->next;
 		}
-		elem->prev = cursor;
-		if (last)
-		{
-			elem->next = first;
-			first->prev = elem;
-		}
-		cursor->next = elem;
+		elem->prev = current;
+		elem->next = first;
+		first->prev = elem;
+		current->next = elem;
 	}
 	return (*list);
 }
@@ -133,15 +132,20 @@ void viewselect(t_select *select, t_shell shell)
 	first = select;
 	i = 1;
 	tour = 0;
+
+
+
+	//exit(0);
 	while (current && !tour)
 	{
+		//ft_dprintf(STDIN_FILENO, "%p %p %p %s\n", current, current->prev, current->next, current->prev->name);
 		if (current->select)
 			tputs(tgetstr("mr", NULL), 1, lol);
 		if (current->cursor)
 			tputs(tgetstr("us", NULL), 1, lol);
 
-		ft_dprintf(STDIN_FILENO,"{red}[ %-*s ]{eoc} ", sizemax , current->name);
-
+		ft_dprintf(STDIN_FILENO,"{red}[ %-*s ]{eoc}", sizemax, current->name);
+ 		//ft_dprintf(STDIN_FILENO,"{red}[ %-10s ]{eoc} {blue}[ %-10s ]{eoc} {green}[ %-10s ]{eoc}\n", current->name, current->prev->name, current->next->name);
 		if (current->select)
 			tputs(tgetstr("me", NULL), 1, lol);
 		if (current->cursor)
@@ -166,8 +170,11 @@ void cursornext(t_select *select)
 	{
 		current = current->next;
 	}
-	current->next->cursor = 1;
-	current->cursor = 0;
+	if (current != current->next)
+	{
+		current->next->cursor = 1;
+		current->cursor = 0;
+	}
 }
 
 void cursorprev(t_select *select)
@@ -179,8 +186,45 @@ void cursorprev(t_select *select)
 	{
 		current = current->next;
 	}
-	current->prev->cursor = 1;
-	current->cursor = 0;
+	if (current != current->prev)
+	{
+		current->prev->cursor = 1;
+		current->cursor = 0;
+	}
+}
+
+void	cursordel(t_select **select)
+{
+	t_select *current;
+	t_select *last;
+	t_select *next;
+	t_select *first;
+
+	first = *select;
+	last = *select;
+	current = *select;
+	while (!current->cursor)
+	{
+		last = current;
+		current = current->next;
+	}
+	next = current->next;
+	if (current == first)
+	{
+		current->name = next->name;
+		current->next = next->next;
+		next->next->prev = current;
+	}
+	else
+	{
+		last->next = next;
+		next->prev = last;
+		next->cursor = 1;
+		//free(current->name);
+		current->name = NULL;
+	}
+	//free(current);
+	//return (next);
 }
 
 void cursorup(t_select *select, t_shell shell)
