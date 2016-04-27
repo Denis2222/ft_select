@@ -31,10 +31,17 @@ typedef struct		s_select
 typedef struct		s_shell
 {
 	struct winsize	sz;
+	t_select		*list;
+
 }					t_shell;
 
 t_select			*newselect(char *name);
-t_select			*addselect(t_select **list, t_select *elem, int last);
+t_select			*addselect(t_select **list, t_select *elem);
+
+int					selectlen(t_select *select);
+size_t				selectmaxstr(t_select *select);
+int 				wordbyline(t_select *select, int ws_col);
+
 void				viewselect(t_select *select, t_shell shell);
 void 				cursornext(t_select *select);
 void 				cursorprev(t_select *select);
@@ -44,9 +51,12 @@ void				cursordel(t_select **select);
 void				selectcursor(t_select *select);
 char				*selectreturn(t_select *select);
 
-t_select			*parseargv(int ac, char **argv);
+t_select			*parseargv(char **argv);
 t_shell				newshell(void);
 void 				updateshell(t_shell *shell);
 int					lol(int c);
+
+int 				key(char *buffer, t_select *select, t_shell shell);
+void 				exitprg(void);
 
 #endif

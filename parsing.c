@@ -12,7 +12,7 @@
 
 #include "ft_select.h"
 
-t_select *parseargv(int ac, char **argv)
+t_select *parseargv(char **argv)
 {
 	int			i;
 	t_select	*new;
@@ -22,10 +22,8 @@ t_select *parseargv(int ac, char **argv)
 	while (argv[i])
 	{
 		new = newselect(argv[i]);
-		if (i < ac - 1)
-			select = addselect(&select, new, 0);
-		else
-			select = addselect(&select, new, 1);
+
+		select = addselect(&select, new);
 		i++;
 	}
 	return (select);

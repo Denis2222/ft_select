@@ -12,11 +12,28 @@
 
 #include "ft_select.h"
 
+t_shell *getshell(t_shell *shell)
+{
+	static t_shell *save = NULL;
+	t_shell	new;
+	if (save == NULL)
+	{
+	 	new = newshell();
+		save = &new;
+	}
+		(void)shell;
+
+
+
+	return (save);
+}
+
 t_shell newshell(void)
 {
 	t_shell shell;
 
 	ioctl(0, TIOCGWINSZ, &shell.sz);
+	shell.list = NULL;
 	//ft_dprintf(STDIN_FILENO,"New shell : info h:%d w:%d\n", shell.sz.ws_row, shell.sz.ws_col);
 	return (shell);
 }

@@ -1,6 +1,10 @@
 SRCS = main.c \
 		t_select.c \
 		parsing.c \
+		t_select_fct.c \
+		t_select_cursor.c \
+		t_select_cursor_move.c \
+		key.c \
 		t_shell.c
 
 NAME = ft_select
