@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:37:43 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 19:06:54 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 19:29:29 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,7 @@ t_select	*addselect(t_select **list, t_select *elem)
 	else
 	{
 		while (current->next && current->next != first)
-		{
 			current = current->next;
-		}
 		elem->prev = current;
 		elem->next = first;
 		first->prev = elem;
@@ -80,15 +78,13 @@ void viewselect(t_shell *shell)
 			tputs(tgetstr("mr", NULL), 1, lol);
 		if (current->cursor)
 			tputs(tgetstr("us", NULL), 1, lol);
-		ft_dprintf(STDIN_FILENO,"{red}[ %-*s ]{eoc}", sizemax, current->name);
+		ft_dprintf(STDIN_FILENO,"{blue}[ %-*s ]{eoc}", sizemax, current->name);
 		if (current->select)
 			tputs(tgetstr("me", NULL), 1, lol);
 		if (current->cursor)
 			tputs(tgetstr("ue", NULL), 1, lol);
-
 		if (i % (wbl) == 0)
 			ft_dprintf(STDIN_FILENO, "\n");
-
 		if (current->next == first)
 			tour = 1;
 		current = current->next;

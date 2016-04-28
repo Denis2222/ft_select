@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 19:06:09 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 19:33:29 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,25 @@ void	cursordel(t_select **select)
 	next = current->next;
 	if (current == first)
 	{
-		current->name = next->name;
+		free(current->name);
+		current->name = NULL;
+		current->name = ft_strdup(next->name);
 		current->next = next->next;
 		next->next->prev = current;
-/*		free(next->name);
+		free(next->name);
 		next->name = NULL;
-		free(next);*/
+		free(next);
+		next = NULL;
 	}
 	else
 	{
 		last->next = next;
 		next->prev = last;
 		next->cursor = 1;
-
 		free(current->name);
 		current->name = NULL;
 		free(current);
 	}
-
-
-
 }
 
 void selectcursor(t_select *select)
@@ -95,5 +94,7 @@ char	*selectreturn(t_select *select)
 		current = current->next;
 		i++;
 	}
+	if (out[ft_strlen(out) - 1] == ' ')
+		out[ft_strlen(out) - 1] = '\0';
 	return (out);
 }
