@@ -6,13 +6,13 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 21:19:51 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 21:26:08 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void	cursordelfirst(t_select *current, t_select *next)
+static void	cursordelfirst(t_select *current, t_select *next)
 {
 	free(current->name);
 	current->name = NULL;
@@ -25,7 +25,7 @@ void	cursordelfirst(t_select *current, t_select *next)
 	next = NULL;
 }
 
-void	cursordelnext(t_select *current, t_select *next, t_select *last)
+static void	cursordelnext(t_select *current, t_select *next, t_select *last)
 {
 	last->next = next;
 	next->prev = last;
@@ -35,7 +35,7 @@ void	cursordelnext(t_select *current, t_select *next, t_select *last)
 	free(current);
 }
 
-void	cursordel(t_select **select)
+void		cursordel(t_select **select)
 {
 	t_select *current;
 	t_select *last;
@@ -59,7 +59,7 @@ void	cursordel(t_select **select)
 		cursordelnext(current, next, last);
 }
 
-void	selectcursor(t_select *select)
+void		selectcursor(t_select *select)
 {
 	t_select *current;
 
@@ -70,7 +70,7 @@ void	selectcursor(t_select *select)
 	cursornext(select);
 }
 
-char	*selectreturn(t_select *select)
+char		*selectreturn(t_select *select)
 {
 	t_select	*current;
 	t_select	*first;

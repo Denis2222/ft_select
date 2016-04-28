@@ -6,13 +6,13 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 20:25:21 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 21:29:49 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int	keyarrow(char *buffer, t_shell *shell)
+static int	keyarrow(char *buffer, t_shell *shell)
 {
 	if (buffer[2] == 65)
 		cursordown(shell);
@@ -30,7 +30,7 @@ int	keyarrow(char *buffer, t_shell *shell)
 	return (1);
 }
 
-int	keyenter(t_shell *shell)
+static int	keyenter(t_shell *shell)
 {
 	char	*str;
 
@@ -44,7 +44,7 @@ int	keyenter(t_shell *shell)
 	exit(0);
 }
 
-int	key(char *buffer, t_shell *shell)
+int			key(char *buffer, t_shell *shell)
 {
 	if (buffer[0] == 27)
 		return (keyarrow(buffer, shell));

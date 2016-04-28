@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:37:43 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 21:13:28 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 21:29:22 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_select	*addselect(t_select **list, t_select *elem)
 	return (*list);
 }
 
-void		viewelem(t_select *current, t_shell *shell, int i)
+static void	viewelem(t_select *current, t_shell *shell, int i)
 {
 	if (current->select)
 		tputs(tgetstr("mr", NULL), 1, putintc);

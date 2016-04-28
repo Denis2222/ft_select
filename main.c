@@ -6,19 +6,13 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 21:15:03 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 21:27:14 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int		putintc(int c)
-{
-	write(STDIN_FILENO, &c, 1);
-	return (0);
-}
-
-int		mainloop(int ac, char **argv)
+static int	mainloop(int ac, char **argv)
 {
 	char		buffer[4];
 	t_shell		*shell;
@@ -44,7 +38,13 @@ int		mainloop(int ac, char **argv)
 	return (0);
 }
 
-int		main(int ac, char **argv)
+int			putintc(int c)
+{
+	write(STDIN_FILENO, &c, 1);
+	return (0);
+}
+
+int			main(int ac, char **argv)
 {
 	char	*name_term;
 
