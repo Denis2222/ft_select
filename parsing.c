@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 17:45:21 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/23 18:28:59 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 16:16:16 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ t_select *parseargv(char **argv)
 	t_select	*select = NULL;
 	t_shell		*shell;
 
-	shell = getshell(NULL);
-
+	shell = getshell();
 	i = 1;
 	while (argv[i])
 	{

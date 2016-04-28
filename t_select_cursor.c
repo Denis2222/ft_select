@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/23 19:04:42 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 18:14:18 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@ void	cursordel(t_select **select)
 	first = *select;
 	last = *select;
 	current = *select;
+
+	if (selectlen(*select) < 2)
+	{
+		handle_quit(0);
+	}
 	while (!current->cursor)
 	{
 		last = current;
@@ -39,11 +44,8 @@ void	cursordel(t_select **select)
 		last->next = next;
 		next->prev = last;
 		next->cursor = 1;
-		//free(current->name);
 		current->name = NULL;
 	}
-	//free(current);
-	//return (next);
 }
 
 void selectcursor(t_select *select)
@@ -53,7 +55,6 @@ void selectcursor(t_select *select)
 	current = select;
 	while (!current->cursor)
 	{
-		//ft_dprintf(STDIN_FILENO,"While !\n");
 		current = current->next;
 	}
 	current->select = current->select ? 0 : 1;

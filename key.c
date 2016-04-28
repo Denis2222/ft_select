@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/23 19:04:42 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 18:06:48 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int key(char *buffer, t_shell *shell)
 {
-	//ft_dprintf(STDIN_FILENO,"[%d %d %d]\n", buffer[0], buffer[1], buffer[2]);
+	ft_dprintf(STDIN_FILENO,"[%d %d %d %d]\n", buffer[0], buffer[1], buffer[2], buffer[3]);
 	if (buffer[0] == 27)
 	{
 		if (buffer[2] == 65)
@@ -27,6 +27,8 @@ int key(char *buffer, t_shell *shell)
 			cursornext(shell->list);
 		if (buffer[1] == 0 && buffer[2] == 0) //ECHAP
 			exitprg();
+		if (buffer[0] == 27 && buffer[1] == 91 && buffer[2] == 51 && buffer[3] == 126)
+			cursordel(&(shell->list));
 		return (1);
 	}
 	else if (buffer[0] == 32)
@@ -41,7 +43,7 @@ int key(char *buffer, t_shell *shell)
 	}
 	else if (buffer[0] == 10) //ENTER
 	{
-		tputs(tgetstr("te", NULL), 1, lol);
+		selectmodeoff(shell);
 		ft_dprintf(STDOUT_FILENO, selectreturn(shell->list));
 		exit(0);
 	}

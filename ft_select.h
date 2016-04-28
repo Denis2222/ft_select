@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:45:37 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/23 19:07:05 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 18:12:44 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,18 @@ char				*selectreturn(t_select *select);
 
 t_select			*parseargv(char **argv);
 t_shell				*newshell(void);
-t_shell				*getshell(t_shell *shell);
+t_shell				*getshell(void);
 void 				updateshell(t_shell *shell);
+void 				selectmodeon(t_shell *shell);
+void 				selectmodeoff(t_shell *shell);
+
 int					lol(int c);
 
 int 				key(char *buffer, t_shell *shell);
 void 				exitprg(void);
+void 				handle_winch(int sig);
+void 				handle_stop(int sig);
+void 				handle_quit(int sig);
+void 				handle_continue(int sig);
 
 #endif
