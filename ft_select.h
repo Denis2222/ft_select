@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:45:37 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 20:28:56 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 21:17:10 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct		s_shell
 	t_select		*list;
 	struct termios	*tiosold;
 	struct termios	*tios;
+	int				sizemax;
+	int				wbl;
 }					t_shell;
 
 t_select			*newselect(char *name);

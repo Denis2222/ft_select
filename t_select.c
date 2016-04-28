@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:37:43 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 20:59:36 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 21:13:28 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,31 @@ t_select	*addselect(t_select **list, t_select *elem)
 	return (*list);
 }
 
-void	viewselect(t_shell *shell)
+void		viewelem(t_select *current, t_shell *shell, int i)
+{
+	if (current->select)
+		tputs(tgetstr("mr", NULL), 1, putintc);
+	if (current->cursor)
+		tputs(tgetstr("us", NULL), 1, putintc);
+	ft_dprintf(0, "{red}[ %-*s ]{eoc}", shell->sizemax, current->name);
+	if (current->select)
+		tputs(tgetstr("me", NULL), 1, putintc);
+	if (current->cursor)
+		tputs(tgetstr("ue", NULL), 1, putintc);
+	if (i % (shell->wbl) == 0)
+		ft_dprintf(STDIN_FILENO, "\n");
+}
+
+void		viewselect(t_shell *shell)
 {
 	t_select	*current;
 	t_select	*first;
 	int			tour;
-	int			wbl;
 	int			i;
-	int			sizemax;
 
-	sizemax = selectmaxstr(shell->list);
-	wbl = wordbyline(shell->list, shell->sz->ws_col);
-	if ((selectlen(shell->list) / wbl) > shell->sz->ws_row)
+	shell->sizemax = selectmaxstr(shell->list);
+	shell->wbl = wordbyline(shell->list, shell->sz->ws_col);
+	if ((selectlen(shell->list) / shell->wbl) > shell->sz->ws_row)
 	{
 		ft_dprintf(STDIN_FILENO, "Not enought size\n");
 		return ;
@@ -73,17 +86,7 @@ void	viewselect(t_shell *shell)
 	tour = 0;
 	while (current && !tour)
 	{
-		if (current->select)
-			tputs(tgetstr("mr", NULL), 1, putintc);
-		if (current->cursor)
-			tputs(tgetstr("us", NULL), 1, putintc);
-		ft_dprintf(STDIN_FILENO, "{red}[ %-*s ]{eoc}", sizemax, current->name);
-		if (current->select)
-			tputs(tgetstr("me", NULL), 1, putintc);
-		if (current->cursor)
-			tputs(tgetstr("ue", NULL), 1, putintc);
-		if (i % (wbl) == 0)
-			ft_dprintf(STDIN_FILENO, "\n");
+		viewelem(current, shell, i);
 		if (current->next == first)
 			tour = 1;
 		current = current->next;

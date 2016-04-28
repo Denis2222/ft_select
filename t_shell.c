@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:45:37 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 20:38:55 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 21:11:45 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_shell	*getshell(void)
 
 	if (save == NULL)
 		save = newshell();
+	updateshell(save);
 	return (save);
 }
 

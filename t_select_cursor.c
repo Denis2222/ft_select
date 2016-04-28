@@ -6,11 +6,34 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 20:53:29 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 21:19:51 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+void	cursordelfirst(t_select *current, t_select *next)
+{
+	free(current->name);
+	current->name = NULL;
+	current->name = ft_strdup(next->name);
+	current->next = next->next;
+	next->next->prev = current;
+	free(next->name);
+	next->name = NULL;
+	free(next);
+	next = NULL;
+}
+
+void	cursordelnext(t_select *current, t_select *next, t_select *last)
+{
+	last->next = next;
+	next->prev = last;
+	next->cursor = 1;
+	free(current->name);
+	current->name = NULL;
+	free(current);
+}
 
 void	cursordel(t_select **select)
 {
@@ -31,26 +54,9 @@ void	cursordel(t_select **select)
 	}
 	next = current->next;
 	if (current == first)
-	{
-		free(current->name);
-		current->name = NULL;
-		current->name = ft_strdup(next->name);
-		current->next = next->next;
-		next->next->prev = current;
-		free(next->name);
-		next->name = NULL;
-		free(next);
-		next = NULL;
-	}
+		cursordelfirst(current, next);
 	else
-	{
-		last->next = next;
-		next->prev = last;
-		next->cursor = 1;
-		free(current->name);
-		current->name = NULL;
-		free(current);
-	}
+		cursordelnext(current, next, last);
 }
 
 void	selectcursor(t_select *select)
