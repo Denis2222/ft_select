@@ -17,6 +17,9 @@ t_select *parseargv(char **argv)
 	int			i;
 	t_select	*new;
 	t_select	*select = NULL;
+	t_shell		*shell;
+
+	shell = getshell(NULL);
 
 	i = 1;
 	while (argv[i])
@@ -26,5 +29,6 @@ t_select *parseargv(char **argv)
 		select = addselect(&select, new);
 		i++;
 	}
+	shell->list = select;
 	return (select);
 }

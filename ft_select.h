@@ -30,9 +30,10 @@ typedef struct		s_select
 
 typedef struct		s_shell
 {
-	struct winsize	sz;
+	struct winsize	*sz;
 	t_select		*list;
-
+	struct termios	*tiosold;
+	struct termios	*tios;
 }					t_shell;
 
 t_select			*newselect(char *name);
@@ -42,21 +43,22 @@ int					selectlen(t_select *select);
 size_t				selectmaxstr(t_select *select);
 int 				wordbyline(t_select *select, int ws_col);
 
-void				viewselect(t_select *select, t_shell shell);
+void				viewselect(t_shell *shell);
 void 				cursornext(t_select *select);
 void 				cursorprev(t_select *select);
-void				cursorup(t_select *select, t_shell shell);
-void				cursordown(t_select *select, t_shell shell);
+void				cursorup(t_shell *shell);
+void				cursordown(t_shell *shell);
 void				cursordel(t_select **select);
 void				selectcursor(t_select *select);
 char				*selectreturn(t_select *select);
 
 t_select			*parseargv(char **argv);
-t_shell				newshell(void);
+t_shell				*newshell(void);
+t_shell				*getshell(t_shell *shell);
 void 				updateshell(t_shell *shell);
 int					lol(int c);
 
-int 				key(char *buffer, t_select *select, t_shell shell);
+int 				key(char *buffer, t_shell *shell);
 void 				exitprg(void);
 
 #endif

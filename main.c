@@ -26,7 +26,12 @@ void exitprg(void)
 
 void handle_winch(int sig) {
 	(void)sig;
+	t_shell	*shell;
+
+	shell = getshell(NULL);
+	updateshell(shell);
 	tputs(tgetstr("cl", NULL), 1, lol);
+	viewselect(shell);
 	ft_dprintf(STDIN_FILENO,"clear move !\n");
 }
 
@@ -52,61 +57,61 @@ void handle_continue(int sig)
 	tcsetattr(0, TCSADRAIN, &term);
 	tputs(tgetstr("ti", NULL), 1, lol);
 }
+char	*staticchar(char *in, int way)
+{
+	static char *str = NULL;
+
+	if (way)
+	{
+		str = ft_strdup(in);
+		return (str);
+	}
+	else
+	{
+		return (str);
+	}
+}
+
 
 int	mainloop(int ac, char **argv)
 {
 	char		buffer[3];
-	t_shell		shell;
-	t_select	*select;
+	t_shell		*shell;
 
 	(void)ac;
-	shell = newshell();
-	select = parseargv(argv);
+	shell = getshell(NULL);
+
+	parseargv(argv);
 	signal(SIGWINCH, handle_winch);
 	signal(SIGTSTP, handle_stop);
 	signal(SIGCONT, handle_continue);
 	while (1)
 	{
-
 		tputs(tgetstr("cl", NULL), 1, lol);
-		key(buffer, select, shell);
-		viewselect(select, shell);
+		key(buffer, shell);
+		viewselect(shell);
 		//exit(0);
 		bzero(buffer, 3);
 		read(0, buffer, 3);
-		updateshell(&shell);
+		updateshell(shell);
 	}
 	return (0);
 }
 
 
-int	main(int ac, char **argv, char **env)
+int	main(int ac, char **argv)
 {
 	//t_shell			*shell;
 	char			*name_term;
-	struct termios	term;
 
-	(void)env;
 	if ((name_term = getenv("TERM")) == NULL)
 		return (-1);
-
-	ft_printf("%s", name_term);
-	sleep(2);
-
 	if (tgetent(NULL, name_term) == ERR)
-		return (-1);
-	if (tcgetattr(0, &term) == -1)
 		return (-1);
 
 	if (ac < 2)
 		exit(1);
-	term.c_lflag &= ~(ICANON);
-	term.c_lflag &= ~(ECHO);
-	term.c_cc[VMIN] = 1;
-	term.c_cc[VTIME] = 100;
-	if (tcsetattr(0, TCSADRAIN, &term) == -1)
-		return (-1);
-	tputs(tgetstr("ti", NULL), 1, lol);
+
 	mainloop(ac, argv);
 	return (0);
 }

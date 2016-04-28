@@ -54,7 +54,7 @@ t_select	*addselect(t_select **list, t_select *elem)
 	return (*list);
 }
 
-void viewselect(t_select *select, t_shell shell)
+void viewselect(t_shell *shell)
 {
 	t_select	*current;
 	t_select	*first;
@@ -63,15 +63,15 @@ void viewselect(t_select *select, t_shell shell)
 	int			i;
 	int			sizemax;
 
-	sizemax = selectmaxstr(select);
-	wbl = wordbyline(select, shell.sz.ws_col);
-	if ((selectlen(select) / wbl) > shell.sz.ws_row)
+	sizemax = selectmaxstr(shell->list);
+	wbl = wordbyline(shell->list, shell->sz->ws_col);
+	if ((selectlen(shell->list) / wbl) > shell->sz->ws_row)
 	{
 		ft_dprintf(STDIN_FILENO,"Not enought size\n");
 		return ;
 	}
-	current = select;
-	first = select;
+	current = shell->list;
+	first = shell->list;
 	i = 1;
 	tour = 0;
 	while (current && !tour)

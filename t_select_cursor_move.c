@@ -46,15 +46,15 @@ void cursorprev(t_select *select)
 }
 
 
-void cursorup(t_select *select, t_shell shell)
+void cursorup(t_shell *shell)
 {
 	t_select	*current;
 	int			wbl;
 	int			i;
 
 	i = 0;
-	wbl = wordbyline(select, shell.sz.ws_col);
-	current = select;
+	wbl = wordbyline(shell->list, shell->sz->ws_col);
+	current = shell->list;
 	while (!current->cursor)
 	{
 		current = current->next;
@@ -68,15 +68,15 @@ void cursorup(t_select *select, t_shell shell)
 	current->cursor = 1;
 }
 
-void cursordown(t_select *select, t_shell shell)
+void cursordown(t_shell *shell)
 {
 	t_select	*current;
 	int			wbl;
 	int			i;
 
 	i = 0;
-	wbl = wordbyline(select, shell.sz.ws_col);
-	current = select;
+	wbl = wordbyline(shell->list, shell->sz->ws_col);
+	current = shell->list;
 	while (!current->cursor)
 	{
 		current = current->next;
