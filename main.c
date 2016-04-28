@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 18:13:11 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 18:49:34 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void handle_stop(int sig)
 	selectmodeoff(shell);
 	signal(SIGTSTP, SIG_DFL);
 	ioctl(0, TIOCSTI, buf);
+	ft_printf(" ");
 }
 
 

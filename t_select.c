@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:37:43 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/23 19:08:40 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 19:06:54 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void viewselect(t_shell *shell)
 		if (current->cursor)
 			tputs(tgetstr("us", NULL), 1, lol);
 		ft_dprintf(STDIN_FILENO,"{red}[ %-*s ]{eoc}", sizemax, current->name);
-
 		if (current->select)
 			tputs(tgetstr("me", NULL), 1, lol);
 		if (current->cursor)

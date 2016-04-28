@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 18:14:18 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 19:06:09 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,23 @@ void	cursordel(t_select **select)
 		current->name = next->name;
 		current->next = next->next;
 		next->next->prev = current;
+/*		free(next->name);
+		next->name = NULL;
+		free(next);*/
 	}
 	else
 	{
 		last->next = next;
 		next->prev = last;
 		next->cursor = 1;
+
+		free(current->name);
 		current->name = NULL;
+		free(current);
 	}
+
+
+
 }
 
 void selectcursor(t_select *select)
