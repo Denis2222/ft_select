@@ -6,35 +6,30 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 18:49:34 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 20:33:11 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int lol(int c)
+int		putintc(int c)
 {
 	write(STDIN_FILENO, &c, 1);
 	return (0);
 }
 
-void exitprg(void)
-{
-	handle_quit(0);
-}
-
-void handle_winch(int sig)
+void	handle_winch(int sig)
 {
 	t_shell	*shell;
 
 	(void)sig;
 	shell = getshell();
 	updateshell(shell);
-	tputs(tgetstr("cl", NULL), 1, lol);
+	tputs(tgetstr("cl", NULL), 1, putintc);
 	viewselect(shell);
 }
 
-void handle_stop(int sig)
+void	handle_stop(int sig)
 {
 	char	buf[2];
 	t_shell	*shell;
@@ -49,8 +44,7 @@ void handle_stop(int sig)
 	ft_printf(" ");
 }
 
-
-void handle_quit(int sig)
+void	handle_quit(int sig)
 {
 	t_shell	*shell;
 
@@ -60,7 +54,7 @@ void handle_quit(int sig)
 	exit(0);
 }
 
-void handle_continue(int sig)
+void	handle_continue(int sig)
 {
 	t_shell	*shell;
 
@@ -69,18 +63,17 @@ void handle_continue(int sig)
 	signal(SIGCONT, handle_continue);
 	shell = getshell();
 	selectmodeon(shell);
-	tputs(tgetstr("cl", NULL), 1, lol);
+	tputs(tgetstr("cl", NULL), 1, putintc);
 	viewselect(shell);
 }
 
-int	mainloop(int ac, char **argv)
+int		mainloop(int ac, char **argv)
 {
 	char		buffer[4];
 	t_shell		*shell;
 
 	(void)ac;
 	shell = getshell();
-
 	parseargv(argv);
 	signal(SIGWINCH, handle_winch);
 	signal(SIGTSTP, handle_stop);
@@ -90,7 +83,7 @@ int	mainloop(int ac, char **argv)
 	signal(SIGKILL, handle_quit);
 	while (1)
 	{
-		tputs(tgetstr("cl", NULL), 1, lol);
+		tputs(tgetstr("cl", NULL), 1, putintc);
 		key(buffer, shell);
 		viewselect(shell);
 		bzero(buffer, 4);
@@ -100,18 +93,19 @@ int	mainloop(int ac, char **argv)
 	return (0);
 }
 
-int	main(int ac, char **argv)
+int		main(int ac, char **argv)
 {
 	char			*name_term;
 
 	if ((name_term = getenv("TERM")) == NULL)
+	{
+		ft_dprintf(STDERR_FILENO, "Please set the environment variable TERM;");
 		return (-1);
+	}
 	if (tgetent(NULL, name_term) == ERR)
 		return (-1);
-
 	if (ac < 2)
 		exit(1);
-
 	mainloop(ac, argv);
 	return (0);
 }

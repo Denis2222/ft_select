@@ -6,12 +6,11 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:37:43 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 19:29:29 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 20:59:36 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-
 
 t_select	*newselect(char *name)
 {
@@ -52,7 +51,7 @@ t_select	*addselect(t_select **list, t_select *elem)
 	return (*list);
 }
 
-void viewselect(t_shell *shell)
+void	viewselect(t_shell *shell)
 {
 	t_select	*current;
 	t_select	*first;
@@ -65,7 +64,7 @@ void viewselect(t_shell *shell)
 	wbl = wordbyline(shell->list, shell->sz->ws_col);
 	if ((selectlen(shell->list) / wbl) > shell->sz->ws_row)
 	{
-		ft_dprintf(STDIN_FILENO,"Not enought size\n");
+		ft_dprintf(STDIN_FILENO, "Not enought size\n");
 		return ;
 	}
 	current = shell->list;
@@ -75,14 +74,14 @@ void viewselect(t_shell *shell)
 	while (current && !tour)
 	{
 		if (current->select)
-			tputs(tgetstr("mr", NULL), 1, lol);
+			tputs(tgetstr("mr", NULL), 1, putintc);
 		if (current->cursor)
-			tputs(tgetstr("us", NULL), 1, lol);
-		ft_dprintf(STDIN_FILENO,"{blue}[ %-*s ]{eoc}", sizemax, current->name);
+			tputs(tgetstr("us", NULL), 1, putintc);
+		ft_dprintf(STDIN_FILENO, "{red}[ %-*s ]{eoc}", sizemax, current->name);
 		if (current->select)
-			tputs(tgetstr("me", NULL), 1, lol);
+			tputs(tgetstr("me", NULL), 1, putintc);
 		if (current->cursor)
-			tputs(tgetstr("ue", NULL), 1, lol);
+			tputs(tgetstr("ue", NULL), 1, putintc);
 		if (i % (wbl) == 0)
 			ft_dprintf(STDIN_FILENO, "\n");
 		if (current->next == first)

@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/23 19:04:42 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 20:39:24 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ size_t	selectmaxstr(t_select *select)
 	return (max);
 }
 
-int wordbyline(t_select *select, int ws_col)
+int		wordbyline(t_select *select, int ws_col)
 {
 	int	sizemax;
 	int	wordbyline;

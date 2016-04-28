@@ -8,7 +8,7 @@ SRCS = main.c \
 		t_shell.c
 
 NAME = ft_select
-GCC_FLAGS = -g -Wall -Werror -Wextra
+GCC_FLAGS = -Wall -Werror -Wextra
 CC = gcc $(GCC_FLAGS)
 SRCDIR = ./
 OBJDIR = ./objs

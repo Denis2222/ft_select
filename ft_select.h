@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:45:37 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 18:12:44 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 20:28:56 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,14 @@ t_select			*addselect(t_select **list, t_select *elem);
 
 int					selectlen(t_select *select);
 size_t				selectmaxstr(t_select *select);
-int 				wordbyline(t_select *select, int ws_col);
+int					wordbyline(t_select *select, int ws_col);
 
 void				viewselect(t_shell *shell);
-void 				cursornext(t_select *select);
-void 				cursorprev(t_select *select);
+void				cursornext(t_select *select);
+void				cursorprev(t_select *select);
 void				cursorup(t_shell *shell);
 void				cursordown(t_shell *shell);
+void				cursornextto(t_select *select, char c);
 void				cursordel(t_select **select);
 void				selectcursor(t_select *select);
 char				*selectreturn(t_select *select);
@@ -55,17 +56,17 @@ char				*selectreturn(t_select *select);
 t_select			*parseargv(char **argv);
 t_shell				*newshell(void);
 t_shell				*getshell(void);
-void 				updateshell(t_shell *shell);
-void 				selectmodeon(t_shell *shell);
-void 				selectmodeoff(t_shell *shell);
+void				updateshell(t_shell *shell);
+void				selectmodeon(t_shell *shell);
+void				selectmodeoff(t_shell *shell);
 
-int					lol(int c);
+int					putintc(int c);
 
-int 				key(char *buffer, t_shell *shell);
-void 				exitprg(void);
-void 				handle_winch(int sig);
-void 				handle_stop(int sig);
-void 				handle_quit(int sig);
-void 				handle_continue(int sig);
+int					key(char *buffer, t_shell *shell);
+void				exitprg(void);
+void				handle_winch(int sig);
+void				handle_stop(int sig);
+void				handle_quit(int sig);
+void				handle_continue(int sig);
 
 #endif

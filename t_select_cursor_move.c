@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   t_select_cursor.c                                  :+:      :+:    :+:   */
+/*   t_select_cursor_move.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/23 19:04:42 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 20:29:07 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-
-void cursornext(t_select *select)
+void	cursornext(t_select *select)
 {
 	t_select *current;
 
@@ -29,7 +28,7 @@ void cursornext(t_select *select)
 	}
 }
 
-void cursorprev(t_select *select)
+void	cursorprev(t_select *select)
 {
 	t_select *current;
 
@@ -45,8 +44,7 @@ void cursorprev(t_select *select)
 	}
 }
 
-
-void cursorup(t_shell *shell)
+void	cursorup(t_shell *shell)
 {
 	t_select	*current;
 	int			wbl;
@@ -68,7 +66,7 @@ void cursorup(t_shell *shell)
 	current->cursor = 1;
 }
 
-void cursordown(t_shell *shell)
+void	cursordown(t_shell *shell)
 {
 	t_select	*current;
 	int			wbl;
@@ -88,4 +86,26 @@ void cursordown(t_shell *shell)
 		wbl--;
 	}
 	current->cursor = 1;
+}
+
+void	cursornextto(t_select *select, char c)
+{
+	t_select	*current;
+	t_select	*cursor;
+	int			i;
+	char		*str;
+	int			max;
+
+	max = selectlen(select);
+	str = ft_strdup(" ");
+	str[0] = c;
+	i = 0;
+	current = select;
+	while (!current->cursor)
+		current = current->next;
+	cursor = current;
+	while (ft_strncmp(current->name, str, 1) != 0 && ++i < max)
+		current = current->next;
+	while (i-- > 0)
+		cursornext(select);
 }

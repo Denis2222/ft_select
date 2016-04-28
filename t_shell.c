@@ -6,24 +6,22 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:45:37 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 16:14:25 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 20:38:55 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-t_shell *getshell(void)
+t_shell	*getshell(void)
 {
 	static t_shell *save = NULL;
 
 	if (save == NULL)
-	{
-	 	save = newshell();
-	}
+		save = newshell();
 	return (save);
 }
 
-t_shell *newshell(void)
+t_shell	*newshell(void)
 {
 	t_shell *shell;
 
@@ -44,26 +42,25 @@ t_shell *newshell(void)
 	return (shell);
 }
 
-
-void updateshell(t_shell *shell)
+void	updateshell(t_shell *shell)
 {
 	struct winsize w;
 
-    ioctl(0, TIOCGWINSZ, &w);
+	ioctl(0, TIOCGWINSZ, &w);
 	shell->sz->ws_col = w.ws_col;
 	shell->sz->ws_row = w.ws_row;
 }
 
-void selectmodeon(t_shell *shell)
+void	selectmodeon(t_shell *shell)
 {
 	tcsetattr(0, TCSADRAIN, shell->tios);
-	tputs(tgetstr("vi", NULL), 1, lol);
-	tputs(tgetstr("ti", NULL), 1, lol);
+	tputs(tgetstr("vi", NULL), 1, putintc);
+	tputs(tgetstr("ti", NULL), 1, putintc);
 }
 
-void selectmodeoff(t_shell *shell)
+void	selectmodeoff(t_shell *shell)
 {
 	tcsetattr(0, TCSADRAIN, shell->tiosold);
-	tputs(tgetstr("te", NULL), 1, lol);
-	tputs(tgetstr("ve", NULL), 1, lol);
+	tputs(tgetstr("te", NULL), 1, putintc);
+	tputs(tgetstr("ve", NULL), 1, putintc);
 }

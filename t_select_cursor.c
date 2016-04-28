@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 19:33:29 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/04/28 20:53:29 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,8 @@ void	cursordel(t_select **select)
 	first = *select;
 	last = *select;
 	current = *select;
-
 	if (selectlen(*select) < 2)
-	{
 		handle_quit(0);
-	}
 	while (!current->cursor)
 	{
 		last = current;
@@ -56,30 +53,29 @@ void	cursordel(t_select **select)
 	}
 }
 
-void selectcursor(t_select *select)
+void	selectcursor(t_select *select)
 {
 	t_select *current;
 
 	current = select;
 	while (!current->cursor)
-	{
 		current = current->next;
-	}
 	current->select = current->select ? 0 : 1;
+	cursornext(select);
 }
 
 char	*selectreturn(t_select *select)
 {
 	t_select	*current;
 	t_select	*first;
-	char 		*out;
-	char 		*tmp;
+	char		*out;
+	char		*tmp;
 	int			i;
 
 	current = select;
 	first = select;
 	i = 0;
-	out =ft_strdup("");
+	out = ft_strdup("");
 	while (i == 0 || current != first)
 	{
 		if (current->select)
@@ -94,7 +90,5 @@ char	*selectreturn(t_select *select)
 		current = current->next;
 		i++;
 	}
-	if (out[ft_strlen(out) - 1] == ' ')
-		out[ft_strlen(out) - 1] = '\0';
 	return (out);
 }
