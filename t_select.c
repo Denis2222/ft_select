@@ -6,7 +6,7 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 16:37:43 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 21:29:22 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/02 08:29:47 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ static void	viewelem(t_select *current, t_shell *shell, int i)
 		tputs(tgetstr("mr", NULL), 1, putintc);
 	if (current->cursor)
 		tputs(tgetstr("us", NULL), 1, putintc);
-	ft_dprintf(0, "{red}[ %-*s ]{eoc}", shell->sizemax, current->name);
+	if (current->cursor)
+		ft_dprintf(0, "{red}[⪢%-*s]{eoc}", shell->sizemax, current->name);
+	else
+		ft_dprintf(0, "{red}[ %-*s]{eoc}", shell->sizemax, current->name);
 	if (current->select)
 		tputs(tgetstr("me", NULL), 1, putintc);
 	if (current->cursor)

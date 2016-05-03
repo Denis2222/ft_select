@@ -6,11 +6,44 @@
 /*   By: dmoureu- <dmoureu-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/23 14:46:10 by dmoureu-          #+#    #+#             */
-/*   Updated: 2016/04/28 21:27:14 by dmoureu-         ###   ########.fr       */
+/*   Updated: 2016/05/04 00:04:46 by dmoureu-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+void		sig_handler(int sig)
+{
+	if (sig == SIGWINCH)
+		handle_winch(0);
+	else if (sig == SIGTSTP)
+		handle_stop(0);
+	else if (sig == SIGCONT)
+		handle_continue(0);
+	else if (sig == SIGINT)
+		handle_quit(0);
+	else if (sig == SIGQUIT)
+		handle_quit(0);
+	else if (sig == SIGKILL)
+		handle_quit(0);
+	else if (sig == SIGTERM)
+		handle_quit(0);
+	else
+		ft_dprintf(STDIN_FILENO,
+			"\n O YEAH GIVE ME SIGNAL Love that [%d] 💘!", sig);
+}
+
+void		ft_signal(void)
+{
+	int		i;
+
+	i = 0;
+	while (i < 33)
+	{
+		signal(i, sig_handler);
+		i++;
+	}
+}
 
 static int	mainloop(int ac, char **argv)
 {
@@ -20,12 +53,7 @@ static int	mainloop(int ac, char **argv)
 	(void)ac;
 	shell = getshell();
 	parseargv(argv);
-	signal(SIGWINCH, handle_winch);
-	signal(SIGTSTP, handle_stop);
-	signal(SIGCONT, handle_continue);
-	signal(SIGINT, handle_quit);
-	signal(SIGQUIT, handle_quit);
-	signal(SIGKILL, handle_quit);
+	ft_signal();
 	while (1)
 	{
 		tputs(tgetstr("cl", NULL), 1, putintc);
