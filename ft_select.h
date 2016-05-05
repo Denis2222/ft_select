@@ -18,6 +18,7 @@
 # include <term.h>
 # include <curses.h>
 # include <sys/ioctl.h>
+# include <signal.h>
 
 typedef struct		s_select
 {

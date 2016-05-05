@@ -48,9 +48,7 @@ void	cursorup(t_shell *shell)
 {
 	t_select	*current;
 	int			wbl;
-	int			i;
 
-	i = 0;
 	wbl = wordbyline(shell->list, shell->sz->ws_col);
 	current = shell->list;
 	while (!current->cursor)
@@ -70,9 +68,7 @@ void	cursordown(t_shell *shell)
 {
 	t_select	*current;
 	int			wbl;
-	int			i;
 
-	i = 0;
 	wbl = wordbyline(shell->list, shell->sz->ws_col);
 	current = shell->list;
 	while (!current->cursor)
@@ -91,7 +87,6 @@ void	cursordown(t_shell *shell)
 void	cursornextto(t_select *select, char c)
 {
 	t_select	*current;
-	t_select	*cursor;
 	int			i;
 	char		*str;
 	int			max;
@@ -103,7 +98,6 @@ void	cursornextto(t_select *select, char c)
 	current = select;
 	while (!current->cursor)
 		current = current->next;
-	cursor = current;
 	while (ft_strncmp(current->name, str, 1) != 0 && ++i < max)
 		current = current->next;
 	while (i-- > 0)
