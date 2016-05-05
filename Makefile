@@ -39,3 +39,6 @@ fclean: clean
 	@make -C libft fclean
 
 re: fclean all
+
+test: $(NAME)
+	ls -l `./ft_select *`
